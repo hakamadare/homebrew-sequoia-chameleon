@@ -7,6 +7,9 @@ class SequoiaChameleon < Formula
 
   depends_on "rust" => :build
 
+  # the test suite needs a `gpgconf` executable in path
+  depends_on "gpg" => :test
+
   depends_on "gmp"
   depends_on "nettle"
   depends_on "openssl@3"
@@ -40,7 +43,7 @@ class SequoiaChameleon < Formula
       %commit
     EOS
     begin
-      mkdir_p testpath / ".gnupg" / "openpgp-revocs.d"
+      mkdir_p testpath / ".gnupg"
       chmod 0700, ".gnupg"
 
       ENV["SEQUOIA_GPG_CHAMELEON_LOG_INVOCATIONS"] = "/tmp/chameleon.log"
