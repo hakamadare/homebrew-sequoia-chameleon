@@ -12,7 +12,6 @@ class SequoiaChameleon < Formula
   depends_on "openssl@3"
 
   uses_from_macos "bzip2"
-  uses_from_macos "iconv"
   uses_from_macos "sqlite"
 
   def install
@@ -42,11 +41,13 @@ class SequoiaChameleon < Formula
     EOS
     begin
       mkdir ".gnupg"
-      chmod 0o700, ".gnupg"
+      chmod 0700, ".gnupg"
       system bin / "gpg-sq", "--batch", "--gen-key", "batch.gpg"
       (testpath / "test.txt").write "Hello World!"
-      system bin / "gpg-sq", "--verbose", "--sign", "--encrypt", "--local-user", "alice@foo.bar", "--recipient", "bob@foo.bar", "--output", "test.gpg", "test.txt"
-      system bin / "gpg-sq", "--verbose", "--decrypt", "--local-user", "bob@foo.bar", "--output", "test2.txt", "test.gpg"
+      system bin / "gpg-sq", "--verbose", "--sign", "--encrypt", "--local-user", "alice@foo.bar", "--recipient",
+        "bob@foo.bar", "--output", "test.gpg", "test.txt"
+      system bin / "gpg-sq", "--verbose", "--decrypt", "--local-user", "bob@foo.bar", "--output", "test2.txt",
+        "test.gpg"
       (testpath / "test.txt").read == (testpath / "test2.txt").read
     end
   end
