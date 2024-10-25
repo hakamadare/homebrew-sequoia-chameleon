@@ -40,8 +40,10 @@ class SequoiaChameleon < Formula
       %commit
     EOS
     begin
-      mkdir ".gnupg"
+      mkdir_p testpath / ".gnupg" / "openpgp-revocs.d"
       chmod 0700, ".gnupg"
+
+      ENV["SEQUOIA_GPG_CHAMELEON_LOG_INVOCATIONS"] = "/tmp/chameleon.log"
       system bin / "gpg-sq", "--verbose", "--batch", "--gen-key", "batch.gpg"
       (testpath / "test.txt").write "Hello World!"
       system bin / "gpg-sq", "--verbose", "--sign", "--encrypt", "--local-user", "alice@foo.bar", "--recipient",
