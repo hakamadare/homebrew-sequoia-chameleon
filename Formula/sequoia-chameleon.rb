@@ -42,7 +42,7 @@ class SequoiaChameleon < Formula
     begin
       mkdir ".gnupg"
       chmod 0700, ".gnupg"
-      system bin / "gpg-sq", "--batch", "--gen-key", "batch.gpg"
+      system bin / "gpg-sq", "--verbose", "--batch", "--gen-key", "batch.gpg"
       (testpath / "test.txt").write "Hello World!"
       system bin / "gpg-sq", "--verbose", "--sign", "--encrypt", "--local-user", "alice@foo.bar", "--recipient",
         "bob@foo.bar", "--output", "test.gpg", "test.txt"
