@@ -8,7 +8,7 @@ class SequoiaChameleon < Formula
   depends_on "rust" => :build
 
   # the test suite needs a `gpgconf` executable in path
-  depends_on "gpg" => :test
+  depends_on "gnupg" => :test
 
   depends_on "gmp"
   depends_on "nettle"
@@ -43,16 +43,15 @@ class SequoiaChameleon < Formula
       %commit
     EOS
     begin
-      mkdir_p testpath / ".gnupg"
+      mkdir testpath / ".gnupg"
       chmod 0700, ".gnupg"
 
-      ENV["SEQUOIA_GPG_CHAMELEON_LOG_INVOCATIONS"] = "/tmp/chameleon.log"
       system bin / "gpg-sq", "--verbose", "--batch", "--gen-key", "batch.gpg"
       (testpath / "test.txt").write "Hello World!"
       system bin / "gpg-sq", "--verbose", "--sign", "--encrypt", "--local-user", "alice@foo.bar", "--recipient",
-        "bob@foo.bar", "--output", "test.gpg", "test.txt"
+"bob@foo.bar", "--output", "test.gpg", "test.txt"
       system bin / "gpg-sq", "--verbose", "--decrypt", "--local-user", "bob@foo.bar", "--output", "test2.txt",
-        "test.gpg"
+"test.gpg"
       (testpath / "test.txt").read == (testpath / "test2.txt").read
     end
   end
