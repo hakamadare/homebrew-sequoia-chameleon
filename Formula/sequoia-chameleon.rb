@@ -1,8 +1,8 @@
 class SequoiaChameleon < Formula
   desc "Reimplementation of gpg and gpgv using Sequoia"
   homepage "https://sequoia-pgp.org"
-  url "https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/archive/v0.11.2/sequoia-chameleon-gnupg-v0.11.2.tar.gz"
-  sha256 "e254146d42facc704bd68c33fec174f15edf6921dd1bc578b37c93ae61c99781"
+  url "https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/archive/v0.12.0/sequoia-chameleon-gnupg-v0.12.0.tar.gz"
+  sha256 "d7b496eaf3e5d80806711521ddbf6636f45126f77a758ef566c120437422dfe9"
   license "GPL-3.0-or-later"
 
   depends_on "rust" => :build
